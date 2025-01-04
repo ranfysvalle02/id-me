@@ -2,8 +2,8 @@
 
 ---
 
-# Harnessing Real-Time Voice Identification with Python: An In-Depth Guide  
-   
+# Harnessing Real-Time Voice Identification with Python
+
 ---  
    
 ## Introduction  
