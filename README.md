@@ -1,5 +1,7 @@
 # id-me
 
+__inspired by: https://github.com/ranfysvalle02/live-speaker-id__
+
 ---
 
 # Harnessing Real-Time Voice Identification with Python
