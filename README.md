@@ -10,6 +10,83 @@ __inspired by: https://github.com/ranfysvalle02/live-speaker-id__
 
 This project Captures real-time audio input, differentiates between speakers, and transcribes their speech into text. It records samples of the user's voice to create a unique voice embedding, allowing the system to distinguish between the user ("Me") and other speakers. It uses two vector spaces—one for "Me" and one for "Not Me". We'll unpack the code, discuss the challenges faced during development, and explore the ethical considerations inherent in working with biometric data.  
 
+## The Project Overview  
+   
+The project aims to create a real-time system that:  
+   
+- **Identifies speakers**: Distinguishes between the enrolled user ("Me") and others ("Not Me").  
+- **Transcribes speech**: Converts spoken words into text.  
+- **Operates in real-time**: Processes live audio streams.  
+
+---  
+   
+## Key Components of the Code  
+   
+### Voice Activity Detection (VAD)  
+   
+**Purpose**: To detect periods of speech (voiced audio) within the audio stream.  
+   
+**Implementation**:  
+   
+- Uses **WebRTC VAD** to process audio frames.  
+- Frames are classified as speech or non-speech.  
+- Voiced frames are collected for further processing.  
+    
+**Challenges**:  
+   
+- **Accuracy**: Incorrect detection can lead to missed speech or false positives.  
+- **Latency**: Needs to process frames quickly for real-time performance.  
+   
+**Mitigation**:  
+   
+- Adjusting VAD parameters (e.g., aggressiveness level).  
+- Implementing buffering strategies to smooth out detection.  
+   
+### Voice Embeddings and Speaker Recognition  
+   
+**Purpose**: To generate numerical representations (embeddings) of voice segments for comparison.  
+   
+**Implementation**:  
+   
+- **SpeechBrain's EncoderClassifier** creates embeddings from audio data.  
+- **FAISS** indexes embeddings for 'Me' and 'Not Me' speakers separately.  
+- Similarity scores determine if the current speaker matches the enrolled profile.  
+   
+**Key Functions**:  
+   
+- `create_embedding()`: Generates and normalizes embeddings.  
+- `compare_to_me()`: Computes similarity with 'Me' embeddings.  
+- `identify_not_me_speaker()`: Identifies or labels new speakers.  
+   
+**Challenges**:  
+   
+- **Variability in Speech**: Different speaking conditions affect embeddings.  
+- **Threshold Determination**: Setting appropriate similarity thresholds for identification.  
+   
+**Mitigation**:  
+   
+- Collecting multiple enrollment samples for robustness.  
+- Experimenting with threshold values based on testing.  
+   
+### Speech Transcription  
+   
+**Purpose**: To convert spoken words into text for documentation and analysis.  
+   
+**Implementation**:  
+   
+- Utilizes **Vosk**, an open-source offline speech recognition toolkit.  
+- Processes audio segments identified by VAD for transcription.  
+   
+**Challenges**:  
+   
+- **Accuracy**: Transcription errors due to accents, background noise, or speech impediments.  
+- **Resource Usage**: Real-time transcription can be computationally intensive.  
+   
+**Mitigation**:  
+   
+- Using language-specific models optimized for accuracy.  
+- Ensuring the system runs on capable hardware.  
+
 ---  
    
 ## Understanding Voice Identification  
@@ -204,84 +281,6 @@ Looking at the output logs provided:
    
 By understanding how vector embeddings and the vector space work in this system, we gain insight into the mathematical foundation that enables accurate speaker identification. It highlights the power of combining signal processing, machine learning, and efficient data structures to solve complex real-time problems.
 
----  
-   
-## The Project Overview  
-   
-The project aims to create a real-time system that:  
-   
-- **Identifies speakers**: Distinguishes between the enrolled user ("Me") and others ("Not Me").  
-- **Transcribes speech**: Converts spoken words into text.  
-- **Operates in real-time**: Processes live audio streams.  
-
----  
-   
-## Key Components of the Code  
-   
-### Voice Activity Detection (VAD)  
-   
-**Purpose**: To detect periods of speech (voiced audio) within the audio stream.  
-   
-**Implementation**:  
-   
-- Uses **WebRTC VAD** to process audio frames.  
-- Frames are classified as speech or non-speech.  
-- Voiced frames are collected for further processing.  
-    
-**Challenges**:  
-   
-- **Accuracy**: Incorrect detection can lead to missed speech or false positives.  
-- **Latency**: Needs to process frames quickly for real-time performance.  
-   
-**Mitigation**:  
-   
-- Adjusting VAD parameters (e.g., aggressiveness level).  
-- Implementing buffering strategies to smooth out detection.  
-   
-### Voice Embeddings and Speaker Recognition  
-   
-**Purpose**: To generate numerical representations (embeddings) of voice segments for comparison.  
-   
-**Implementation**:  
-   
-- **SpeechBrain's EncoderClassifier** creates embeddings from audio data.  
-- **FAISS** indexes embeddings for 'Me' and 'Not Me' speakers separately.  
-- Similarity scores determine if the current speaker matches the enrolled profile.  
-   
-**Key Functions**:  
-   
-- `create_embedding()`: Generates and normalizes embeddings.  
-- `compare_to_me()`: Computes similarity with 'Me' embeddings.  
-- `identify_not_me_speaker()`: Identifies or labels new speakers.  
-   
-**Challenges**:  
-   
-- **Variability in Speech**: Different speaking conditions affect embeddings.  
-- **Threshold Determination**: Setting appropriate similarity thresholds for identification.  
-   
-**Mitigation**:  
-   
-- Collecting multiple enrollment samples for robustness.  
-- Experimenting with threshold values based on testing.  
-   
-### Speech Transcription  
-   
-**Purpose**: To convert spoken words into text for documentation and analysis.  
-   
-**Implementation**:  
-   
-- Utilizes **Vosk**, an open-source offline speech recognition toolkit.  
-- Processes audio segments identified by VAD for transcription.  
-   
-**Challenges**:  
-   
-- **Accuracy**: Transcription errors due to accents, background noise, or speech impediments.  
-- **Resource Usage**: Real-time transcription can be computationally intensive.  
-   
-**Mitigation**:  
-   
-- Using language-specific models optimized for accuracy.  
-- Ensuring the system runs on capable hardware.  
    
 ---  
    
