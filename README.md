@@ -1,6 +1,6 @@
 # id-me
 
-![](https://ars.els-cdn.com/content/image/3-s2.0-B9780123745354000102-gr2.jpg)
+![](https://www.mdpi.com/electronics/electronics-11-02183/article_deploy/html/images/electronics-11-02183-g001.png)
 
 __inspired by: https://github.com/ranfysvalle02/live-speaker-id__
 
