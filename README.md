@@ -90,6 +90,8 @@ The project aims to create a real-time system that:
 ---  
    
 ## Understanding Voice Identification  
+
+![](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/media/speaker-recognition/speaker-rec.png)
    
 **Voice identification** is the process of recognizing a person based on their unique vocal characteristics. Unlike voice recognition, which converts spoken words into text, voice identification focuses on determining who is speaking.  
    
