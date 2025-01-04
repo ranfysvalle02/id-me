@@ -31,7 +31,9 @@ Applications span across:
 ---
    
 ## Understanding Vector Embeddings and the Vector Space  
-   
+
+![](https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41598-022-22977-5/MediaObjects/41598_2022_22977_Fig6_HTML.png)
+
 A core component of the speaker identification system is the use of **vector embeddings** to represent voices numerically. This section delves into how these embeddings work and how they enable the system to differentiate between "Me" and "Not Me" voices within a high-dimensional vector space.  
    
 ### What Are Voice Embeddings?  
