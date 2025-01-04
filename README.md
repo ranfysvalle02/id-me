@@ -407,7 +407,7 @@ For individuals with disabilities:
    
 ---  
    
-## Appendix: The Code Explained  
+## The Code Explained  
    
 ### Dependencies and Setup  
    
